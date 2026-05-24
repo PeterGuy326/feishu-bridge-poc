@@ -48,18 +48,70 @@ A task that takes a human ~1 hour. AI does it in ~10 seconds.
 4. **Composite operations over fine-grained APIs** — fewer, more semantic tools beat many granular ones
 5. **Tools collaborate** — the description of each tool explicitly says which other tools it pairs with
 
-## Repository layout (planned)
+## Repository layout
 
 ```
 src/
-  core/          # shared business logic (Feishu API client + 3 capability functions)
-  cli/           # CLI surface — commander-based
-  mcp/           # MCP surface — @modelcontextprotocol/sdk
+  core/                  # shared business logic
+    client.ts            # Feishu API client (token cache + request helper)
+    types.ts             # shared interfaces
+    tools/               # the 3 capability functions
+      search-events.ts
+      user-recent-work.ts
+      get-attendees.ts
+  cli/index.ts           # CLI surface — commander
+  mcp/server.ts          # MCP surface — @modelcontextprotocol/sdk
 ```
+
+## Quick start
+
+```bash
+# 1. install
+npm install
+
+# 2. configure (one-time)
+cp .env.example .env
+# fill in FEISHU_APP_ID and FEISHU_APP_SECRET
+
+# 3. build
+npm run build
+
+# 4. try the CLI
+node dist/cli/index.js ping
+# => {"ok":true,"message":"feishu-bridge CLI is alive","version":"0.1.0"}
+
+node dist/cli/index.js whoami --open-id ou_xxxxxxxxxxxxxxxx
+# => fetches the user profile (proves your APP_ID/SECRET work)
+```
+
+### Wire up to Claude Desktop (MCP)
+
+Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "feishu-bridge": {
+      "command": "node",
+      "args": ["/absolute/path/to/feishu-bridge-poc/dist/mcp/server.js"],
+      "env": {
+        "FEISHU_APP_ID": "cli_xxxxxxxxxxxxxxxx",
+        "FEISHU_APP_SECRET": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    }
+  }
+}
+```
+
+Restart Claude Desktop. You should see a `feishu_ping` tool available.
 
 ## Status
 
-Work in progress. Built over a weekend as exploration material.
+| Surface | What works today | What lands next |
+|---------|------------------|-----------------|
+| Core client | token cache + `getUser` + `getDocRawContent` + `listBitableRecords` (all verified against real Feishu OpenAPI) | richer error mapping with recovery hints |
+| CLI | `ping`, `whoami --open-id <id>`, `--version`, `--help` | `search-events`, `user-recent-work`, `get-attendees` subcommands |
+| MCP | initialize handshake + `tools/list` + `feishu_ping` tool | register the 3 real tools with AI-Friendly descriptions and disambiguation hints |
 
 ## License
 
