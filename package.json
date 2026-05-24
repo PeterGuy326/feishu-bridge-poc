@@ -1,0 +1,27 @@
+{
+  "name": "feishu-bridge-poc",
+  "version": "0.1.0",
+  "description": "A PoC exploring how collaboration tools should be redesigned for the AI Agent era — exposing Feishu capabilities through both CLI and MCP forms, sharing a unified AI Friendly design philosophy.",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/server.ts",
+    "start:mcp": "node dist/mcp/server.js",
+    "start:cli": "node dist/cli/index.js"
+  },
+  "keywords": [
+    "feishu",
+    "lark",
+    "mcp",
+    "ai-friendly",
+    "agent",
+    "cli",
+    "claude",
+    "cursor"
+  ],
+  "author": "PeterGuy326",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
