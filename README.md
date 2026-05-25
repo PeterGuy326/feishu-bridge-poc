@@ -207,7 +207,8 @@ See `ROADMAP.md` → "Explicitly out of scope". Notably: docx writeback, full Fe
 ## Companion docs
 
 - `DESIGN_PHILOSOPHY.md` — the five principles, expanded
-- `OBSERVATIONS.md` — 7 AI Friendly gaps in the real Feishu OpenAPI I hit during this PoC
+- `GAPS.md` — 7 concrete OpenAPI-level gaps observed while building this PoC (with workarounds and production fixes)
+- `OBSERVATIONS.md` — ecosystem-level notes on the Feishu AI Friendly landscape (lark-cli / lark-openapi-mcp / peer MCP servers / MCP spec)
 - `ROADMAP.md` — stages, exit criteria, out-of-scope list
 
 ## License
