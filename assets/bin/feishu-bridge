@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Local shim so the demo can display `feishu-bridge ...` instead of `node dist/cli/index.js ...`
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+exec node "$DIR/dist/cli/index.js" "$@"

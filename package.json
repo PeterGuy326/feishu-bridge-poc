@@ -1,6 +1,6 @@
 {
   "name": "feishu-bridge-poc",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A PoC exploring how collaboration tools should be redesigned for the AI Agent era — exposing Feishu capabilities through both CLI and MCP forms, sharing a unified AI Friendly design philosophy.",
   "type": "module",
   "bin": {
